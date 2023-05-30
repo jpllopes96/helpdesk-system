@@ -19,7 +19,7 @@ public class Client extends Person{
         setProfile(Profile.CLIENT);
     }
 
-    public Client(Integer id, String name, String cpf, String email, String password, List<Ticket> tickets) {
+    public Client(Integer id, String name, String cpf, String email, String password) {
         super(id, name, cpf, email, password);
         setProfile(Profile.CLIENT);
     }
