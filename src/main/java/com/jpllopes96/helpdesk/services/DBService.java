@@ -7,6 +7,7 @@ import com.jpllopes96.helpdesk.domain.enums.Priority;
 import com.jpllopes96.helpdesk.domain.enums.Profile;
 import com.jpllopes96.helpdesk.domain.enums.Status;
 import com.jpllopes96.helpdesk.repositories.ClientRepository;
+import com.jpllopes96.helpdesk.repositories.PersonRepository;
 import com.jpllopes96.helpdesk.repositories.TecRepository;
 import com.jpllopes96.helpdesk.repositories.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +26,33 @@ public class DBService {
     @Autowired
     TicketRepository ticketRepository;
 
+    @Autowired
+    PersonRepository personRepository;
+
     public void dbInstance(){
-        Tec tec1 = new Tec(null, "Valdir Cezar", "12345623470", "valdir@email.com", "123");
+        Tec tec1 = new Tec(null, "Valdir Cezar", "550.482.150-95", "valdir@mail.com", "123");
         tec1.setProfile(Profile.ADMIN);
+        Tec tec2 = new Tec(null, "Richard Stallman", "903.347.070-56", "stallman@mail.com", "123");
+        Tec tec3 = new Tec(null, "Claude Elwood Shannon", "271.068.470-54", "shannon@mail.com", "123");
+        Tec tec4 = new Tec(null, "Tim Berners-Lee", "162.720.120-39", "lee@mail.com", "123");
+        Tec tec5 = new Tec(null, "Linus Torvalds", "778.556.170-27", "linus@mail.com", "123");
 
-        Client cli1 = new Client(null, "Linus Tovarlds", "12333344409", "torvalds@email.com", "123");
+        Client cli1 = new Client(null, "Albert Einstein", "111.661.890-74", "einstein@mail.com", "123");
+        Client cli2 = new Client(null, "Marie Curie", "322.429.140-06", "curie@mail.com", "123");
+        Client cli3 = new Client(null, "Charles Darwin", "792.043.830-62", "darwin@mail.com", "123");
+        Client cli4 = new Client(null, "Stephen Hawking", "177.409.680-30", "hawking@mail.com", "123");
+        Client cli5 = new Client(null, "Max Planck", "081.399.300-83", "planck@mail.com", "123");
 
-        Ticket t1 = new Ticket(null, Priority.MEDIUM, Status.PROGRESS, "Case 01", "First case", tec1, cli1);
+        Ticket c1 = new Ticket(null, Priority.MEDIUM, Status.PROGRESS, "Ticket 1", "Test Ticket 1", tec1, cli1);
+        Ticket c2 = new Ticket(null, Priority.HIGH, Status.OPEN, "Ticket 2", "Test Ticket 2", tec1, cli2);
+        Ticket c3 = new Ticket(null, Priority.LOW, Status.DONE, "Ticket 3", "Test Ticket 3", tec2, cli3);
+        Ticket c4 = new Ticket(null, Priority.HIGH, Status.OPEN, "Ticket 4", "Test Ticket 4", tec3, cli3);
+        Ticket c5 = new Ticket(null, Priority.MEDIUM, Status.PROGRESS, "Ticket 5", "Test Ticket 5", tec2, cli1);
+        Ticket c6 = new Ticket(null, Priority.LOW, Status.DONE, "Chamado 7", "Test chamado 6", tec1, cli5);
 
-        tecRepository.saveAll(Arrays.asList(tec1));
-        clientRepository.saveAll(Arrays.asList(cli1));
-        ticketRepository.saveAll(Arrays.asList(t1));
+        personRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, cli1, cli2, cli3, cli4, cli5));
+        ticketRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6));
+
     }
 
 }

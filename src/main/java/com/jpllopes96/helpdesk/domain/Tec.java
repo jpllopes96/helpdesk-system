@@ -1,5 +1,6 @@
 package com.jpllopes96.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jpllopes96.helpdesk.domain.enums.Profile;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 public class Tec extends Person{
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tec")
     private List<Ticket> tickets = new ArrayList<>();
 
