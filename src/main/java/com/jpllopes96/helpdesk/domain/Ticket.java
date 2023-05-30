@@ -1,21 +1,37 @@
 package com.jpllopes96.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jpllopes96.helpdesk.domain.enums.Priority;
 import com.jpllopes96.helpdesk.domain.enums.Status;
+import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Ticket {
+@Entity
+public class Ticket implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate creationDate = LocalDate.now();
+
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate closeDate;
     private Priority priority;
     private Status status;
     private String title;
     private String notes;
+
+    @ManyToOne
+    @JoinColumn(name = "tec_id")
     private Tec tec;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
     public Ticket(){
@@ -23,6 +39,7 @@ public class Ticket {
     }
 
     public Ticket(Integer id, Priority priority, Status status, String title, String notes, Tec tec, Client client) {
+
         this.id = id;
         this.priority = priority;
         this.status = status;

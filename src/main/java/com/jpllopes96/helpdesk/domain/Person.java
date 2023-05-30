@@ -1,20 +1,36 @@
 package com.jpllopes96.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jpllopes96.helpdesk.domain.enums.Profile;
+import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public abstract class Person {
+@Entity
+public abstract class Person implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
     protected String name;
+
+    @Column(unique = true)
     protected String cpf;
+
+    @Column(unique = true)
     protected String email;
     protected String password;
+
+    //coleção do tipo integer garantir que a lista de perfil vem junto com o usuário
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PROFILES")
     protected Set<Integer> profiles = new HashSet<>();
+
+    @JsonFormat(pattern = "MM/dd/yyyy")
     protected LocalDate creationDate = LocalDate.now();
 
     public Person(){
