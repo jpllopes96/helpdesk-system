@@ -3,6 +3,7 @@ package com.jpllopes96.helpdesk.resources;
 import com.jpllopes96.helpdesk.domain.Tec;
 import com.jpllopes96.helpdesk.domain.dtos.TecDTO;
 import com.jpllopes96.helpdesk.services.TecService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class TecResource {
     }
 
     @PostMapping
-    public ResponseEntity<TecDTO> create(@RequestBody TecDTO objDTO){
+    public ResponseEntity<TecDTO> create(@Valid @RequestBody TecDTO objDTO){
         Tec newObj = service.create(objDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return ResponseEntity.created(uri).build();

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jpllopes96.helpdesk.domain.Tec;
 import com.jpllopes96.helpdesk.domain.enums.Profile;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -13,9 +14,15 @@ import java.util.stream.Collectors;
 
 public class TecDTO implements Serializable {
     protected Integer id;
+    @NotNull(message = "Name is required")
     protected String name;
+    @NotNull(message = "CPF is required")
     protected String cpf;
+
+    @NotNull(message = "Email is required")
     protected String email;
+
+    @NotNull(message = "Password is required")
     protected String password;
     protected Set<Integer> profiles = new HashSet<>();
     @JsonFormat(pattern = "MM/dd/yyyy")

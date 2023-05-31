@@ -16,6 +16,8 @@ public abstract class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
+
+    @Column(nullable = false)
     protected String name;
 
     @Column(unique = true)
@@ -23,6 +25,8 @@ public abstract class Person implements Serializable {
 
     @Column(unique = true)
     protected String email;
+
+    @Column(nullable = false)
     protected String password;
 
     //coleção do tipo integer garantir que a lista de perfil vem junto com o usuário
