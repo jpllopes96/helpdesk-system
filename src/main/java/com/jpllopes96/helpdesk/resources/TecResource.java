@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping(value = "/technics")
 public class TecResource {
@@ -19,5 +22,12 @@ public class TecResource {
     public ResponseEntity<TecDTO> findById(@PathVariable Integer id){
         Tec obj = service.findById(id);
         return  ResponseEntity.ok().body(new TecDTO(obj));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TecDTO>> findAll(){
+        List<Tec> list = service.findAll();
+        List<TecDTO> listDTO = list.stream().map(x -> new TecDTO(x)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
 }
