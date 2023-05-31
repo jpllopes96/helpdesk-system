@@ -6,7 +6,9 @@ import com.jpllopes96.helpdesk.services.TecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,5 +31,12 @@ public class TecResource {
         List<Tec> list = service.findAll();
         List<TecDTO> listDTO = list.stream().map(x -> new TecDTO(x)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<TecDTO> create(@RequestBody TecDTO objDTO){
+        Tec newObj = service.create(objDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 }

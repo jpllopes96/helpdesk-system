@@ -23,6 +23,7 @@ public class TecDTO implements Serializable {
 
     public TecDTO(){
         super();
+        setProfiles(Profile.CLIENT);
     }
 
     public TecDTO(Tec obj) {
@@ -33,6 +34,7 @@ public class TecDTO implements Serializable {
         this.password = obj.getPassword();
         this.profiles = obj.getProfiles().stream().map(x -> x.getCode()).collect(Collectors.toSet());
         this.creationDate = obj.getCreationDate();
+        setProfiles(Profile.CLIENT);
     }
 
     public Integer getId() {

@@ -1,6 +1,7 @@
 package com.jpllopes96.helpdesk.services;
 
 import com.jpllopes96.helpdesk.domain.Tec;
+import com.jpllopes96.helpdesk.domain.dtos.TecDTO;
 import com.jpllopes96.helpdesk.repositories.TecRepository;
 import com.jpllopes96.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,11 @@ public class TecService {
 
     public List<Tec> findAll() {
         return tecRepository.findAll();
+    }
+
+    public Tec create(TecDTO objDTO) {
+        objDTO.setId(null);
+        Tec newObj = new Tec(objDTO);
+        return tecRepository.save(newObj);
     }
 }
