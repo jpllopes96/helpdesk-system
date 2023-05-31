@@ -1,6 +1,7 @@
 package com.jpllopes96.helpdesk.resources;
 
 import com.jpllopes96.helpdesk.domain.Tec;
+import com.jpllopes96.helpdesk.domain.dtos.TecDTO;
 import com.jpllopes96.helpdesk.services.TecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,8 @@ public class TecResource {
 
     //localhost:8080/technics/1
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Tec> findById(@PathVariable Integer id){
+    public ResponseEntity<TecDTO> findById(@PathVariable Integer id){
         Tec obj = service.findById(id);
-        return  ResponseEntity.ok().body(obj);
+        return  ResponseEntity.ok().body(new TecDTO(obj));
     }
 }
