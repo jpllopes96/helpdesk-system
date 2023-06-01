@@ -41,7 +41,7 @@ public abstract class Person implements Serializable {
 
     public Person(){
         super();
-        setProfile(Profile.CLIENT);
+        addProfile(Profile.CLIENT);
     }
 
     public Person(Integer id, String name, String cpf, String email, String password) {
@@ -50,7 +50,7 @@ public abstract class Person implements Serializable {
         this.cpf = cpf;
         this.email = email;
         this.password = password;
-        setProfile(Profile.CLIENT);
+        addProfile(Profile.CLIENT);
     }
 
     public Integer getId() {
@@ -98,6 +98,10 @@ public abstract class Person implements Serializable {
     }
 
     public void setProfile(Profile profile) {
+        this.profiles.add(profile.getCode());
+    }
+
+    public void addProfile(Profile profile) {
         this.profiles.add(profile.getCode());
     }
 

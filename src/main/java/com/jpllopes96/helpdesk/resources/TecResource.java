@@ -47,4 +47,10 @@ public class TecResource {
         return ResponseEntity.ok().body(new TecDTO(obj));
 
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<TecDTO> delete(@PathVariable Integer id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jpllopes96.helpdesk.domain.Tec;
 import com.jpllopes96.helpdesk.domain.enums.Profile;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,6 +18,7 @@ public class TecDTO implements Serializable {
     protected Integer id;
     @NotNull(message = "Name is required")
     protected String name;
+
     @NotNull(message = "CPF is required")
     protected String cpf;
 
@@ -24,13 +27,14 @@ public class TecDTO implements Serializable {
 
     @NotNull(message = "Password is required")
     protected String password;
+
     protected Set<Integer> profiles = new HashSet<>();
     @JsonFormat(pattern = "MM/dd/yyyy")
     protected LocalDate creationDate = LocalDate.now();
 
     public TecDTO(){
         super();
-        setProfiles(Profile.CLIENT);
+        addProfile(Profile.CLIENT);
     }
 
     public TecDTO(Tec obj) {
@@ -41,7 +45,7 @@ public class TecDTO implements Serializable {
         this.password = obj.getPassword();
         this.profiles = obj.getProfiles().stream().map(x -> x.getCode()).collect(Collectors.toSet());
         this.creationDate = obj.getCreationDate();
-        setProfiles(Profile.CLIENT);
+        addProfile(Profile.CLIENT);
     }
 
     public Integer getId() {
@@ -88,7 +92,11 @@ public class TecDTO implements Serializable {
         return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
     }
 
-    public void setProfiles(Profile profile) {
+    public void setProfiles(Set<Integer> profiles) {
+        this.profiles = profiles;
+    }
+
+    public void addProfile(Profile profile) {
         this.profiles.add(profile.getCode());
     }
 

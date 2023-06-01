@@ -47,6 +47,14 @@ public class TecService {
         return tecRepository.save(oldObj);
     }
 
+    public void delete(Integer id) {
+        Tec obj = findById(id);
+        if (obj.getTickets().size() > 0){
+            throw new DataIntegrityViolationException("Tec cannot be deleted, because it has Tickets");
+        }else {
+            tecRepository.deleteById(id);
+        }
+    }
     private void validateByCPFAndEmail(TecDTO objDTO) {
         Optional<Person> obj = personRepository.findByCpf(objDTO.getCpf());
         if(obj.isPresent() && obj.get().getId() != objDTO.getId()){
@@ -58,6 +66,7 @@ public class TecService {
         }
 
     }
+
 
 
 }
