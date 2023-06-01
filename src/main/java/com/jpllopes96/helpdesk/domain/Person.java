@@ -3,6 +3,7 @@ package com.jpllopes96.helpdesk.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jpllopes96.helpdesk.domain.enums.Profile;
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ public abstract class Person implements Serializable {
 
     @Column(nullable = false)
     protected String name;
+
 
     @Column(unique = true)
     protected String cpf;

@@ -7,6 +7,7 @@ import com.jpllopes96.helpdesk.repositories.PersonRepository;
 import com.jpllopes96.helpdesk.repositories.TecRepository;
 import com.jpllopes96.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.jpllopes96.helpdesk.services.exceptions.ObjectNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,14 @@ public class TecService {
         return tecRepository.save(newObj);
     }
 
+    public Tec update(Integer id, @Valid TecDTO objDTO) {
+        objDTO.setId(id);
+        Tec oldObj = findById(id);
+        validateByCPFAndEmail(objDTO);
+        oldObj = new Tec(objDTO);
+        return tecRepository.save(oldObj);
+    }
+
     private void validateByCPFAndEmail(TecDTO objDTO) {
         Optional<Person> obj = personRepository.findByCpf(objDTO.getCpf());
         if(obj.isPresent() && obj.get().getId() != objDTO.getId()){
@@ -49,4 +58,6 @@ public class TecService {
         }
 
     }
+
+
 }

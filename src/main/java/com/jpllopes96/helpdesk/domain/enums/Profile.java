@@ -8,7 +8,7 @@ public enum Profile {
     private Integer code;
     private String description;
 
-    Profile(Integer code, String description) {
+    private Profile(Integer code, String description) {
         this.code = code;
         this.description = description;
     }

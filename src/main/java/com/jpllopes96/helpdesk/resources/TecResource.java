@@ -40,4 +40,11 @@ public class TecResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping(value = "/{id}")
+    public  ResponseEntity<TecDTO> update(@PathVariable Integer id, @Valid @RequestBody TecDTO objDTO){
+        Tec obj = service.update(id, objDTO);
+        return ResponseEntity.ok().body(new TecDTO(obj));
+
+    }
 }
