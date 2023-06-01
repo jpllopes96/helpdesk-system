@@ -1,13 +1,14 @@
 package com.jpllopes96.helpdesk.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jpllopes96.helpdesk.domain.dtos.ClientDTO;
 import com.jpllopes96.helpdesk.domain.enums.Profile;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Client extends Person{
@@ -19,6 +20,17 @@ public class Client extends Person{
     public Client(){
         super();
         setProfile(Profile.CLIENT);
+    }
+
+    public Client(ClientDTO obj){
+        super();
+        this.id = obj.getId();
+        this.name = obj.getName();
+        this.cpf = obj.getCpf();
+        this.email = obj.getEmail();
+        this.password = obj.getPassword();
+        this.profiles = obj.getProfiles().stream().map(x -> x.getCode()).collect(Collectors.toSet());
+        this.creationDate = obj.getCreationDate();
     }
 
     public Client(Integer id, String name, String cpf, String email, String password) {
