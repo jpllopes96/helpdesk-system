@@ -40,4 +40,11 @@ public class TicketResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TicketDTO> update(@Valid @PathVariable Integer id, @RequestBody TicketDTO objDTO){
+        Ticket newObj = ticketService.update(id, objDTO);
+        return ResponseEntity.ok().body(new TicketDTO(newObj));
+
+    }
 }
