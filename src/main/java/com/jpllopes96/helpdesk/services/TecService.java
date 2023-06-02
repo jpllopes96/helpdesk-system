@@ -9,6 +9,7 @@ import com.jpllopes96.helpdesk.services.exceptions.DataIntegrityViolationExcepti
 import com.jpllopes96.helpdesk.services.exceptions.ObjectNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,9 @@ public class TecService {
     @Autowired
     private PersonRepository personRepository;
 
+    @Autowired
+    BCryptPasswordEncoder encoder;
+
     public Tec findById(Integer id){
         Optional<Tec> obj = tecRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Tec not found! Id: "+ id));
@@ -34,6 +38,7 @@ public class TecService {
 
     public Tec create(TecDTO objDTO) {
         objDTO.setId(null);
+        objDTO.setPassword(encoder.encode(objDTO.getPassword()));
         validateByCPFAndEmail(objDTO);
         Tec newObj = new Tec(objDTO);
         return tecRepository.save(newObj);
