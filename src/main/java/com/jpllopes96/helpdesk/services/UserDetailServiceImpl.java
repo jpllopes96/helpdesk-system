@@ -14,14 +14,16 @@ import java.util.Optional;
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
-    private PersonRepository personRepository;
+    PersonRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<Person> user = personRepository.findByEmail(email);
+
+        Optional<Person> user = repository.findByEmail(email);
         if(user.isPresent()){
             return new UserSS(user.get().getId(), user.get().getEmail(), user.get().getPassword(), user.get().getProfiles());
         }
-        throw new UsernameNotFoundException(email);
+
+        throw  new UsernameNotFoundException(email);
     }
 }

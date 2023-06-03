@@ -1,9 +1,9 @@
 package com.jpllopes96.helpdesk.domain.enums;
 
 public enum Profile {
-    ADMIN(0, "RULE_ADMIN"),
-    CLIENT(1, "RULE_CLIENT"),
-    TEC(2, "RULE_TEC");
+    ADMIN(0, "ROLE_ADMIN"),
+    CLIENT(1, "ROLE_CLIENT"),
+    TEC(2, "ROLE_TEC");
 
     private Integer code;
     private String description;

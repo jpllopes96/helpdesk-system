@@ -6,6 +6,7 @@ import com.jpllopes96.helpdesk.services.TecService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -34,6 +35,7 @@ public class TecResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<TecDTO> create(@Valid @RequestBody TecDTO objDTO){
         Tec newObj = service.create(objDTO);
@@ -41,6 +43,7 @@ public class TecResource {
         return ResponseEntity.created(uri).build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public  ResponseEntity<TecDTO> update(@PathVariable Integer id, @Valid @RequestBody TecDTO objDTO){
         Tec obj = service.update(id, objDTO);
@@ -48,6 +51,7 @@ public class TecResource {
 
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<TecDTO> delete(@PathVariable Integer id){
         service.delete(id);
